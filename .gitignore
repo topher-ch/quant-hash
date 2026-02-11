@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# C++
+build/
+*.o
+*.a
+*.so
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# VSCodium
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
