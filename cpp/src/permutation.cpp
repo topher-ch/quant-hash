@@ -1,6 +1,5 @@
 #include "permutation.hpp"
 #ifdef ENABLE_DOCTEST
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
 #endif
 
