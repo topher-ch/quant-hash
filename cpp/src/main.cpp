@@ -2,12 +2,8 @@
 #include "permutation.hpp"
 
 int main() {
-    quant_hash::Permutation perm;
-
-    perm.setState();
-    perm.apply();
-    perm.getState();
-
+    permutation::State s;
+    permutation::permute(s);
     std::cout << "Compiled successfully\n";
     return 0;
 }
