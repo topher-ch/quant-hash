@@ -1,17 +1,17 @@
 #include "permutation.hpp"
 
-namespace quant_hash {
-    Permutation::Permutation() {}
+namespace permutation {
 
-    // Public API
-    void Permutation::setState() const {}
-    void Permutation::getState() const {}
-    void Permutation::apply() {}
+void permute(State& s) {}
 
-    // Internal round functions
-    void Permutation::theta() {}
-    void Permutation::rho() {}
-    void Permutation::pi() {}
-    void Permutation::chi() {}
-    void Permutation::iota() {}
-}
+} // namespace permutation
+
+namespace permutation::internal {
+
+void theta(State& s) {}
+void rho(State& s) {}
+void pi(State& s) {}
+void chi(State& s) {}
+void iota(State& s) {}
+
+} // namespace permutation::internal

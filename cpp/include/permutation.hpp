@@ -1,21 +1,12 @@
 #pragma once
+#include <cstdint>
 
-namespace quant_hash {
-    class Permutation {
-    public:
-        Permutation();
+namespace permutation {
 
-        // Public API
-        void setState() const;
-        void getState() const;
-        void apply();
+struct State {
+    std::uint64_t bits = 0;
+};
 
-    private:
-        // Internal round functions
-        void theta();
-        void rho();
-        void pi();
-        void chi();
-        void iota();
-    };  
-}
+void permute(State& s);
+
+} // namespace permutation
