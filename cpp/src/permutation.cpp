@@ -1,4 +1,8 @@
 #include "permutation.hpp"
+#ifdef ENABLE_DOCTEST
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <doctest.h>
+#endif
 
 namespace permutation {
 
@@ -13,5 +17,11 @@ void rho(State& s) {}
 void pi(State& s) {}
 void chi(State& s) {}
 void iota(State& s) {}
+
+#ifdef ENABLE_DOCTEST
+TEST_CASE("Simple zero equals zero") {
+    CHECK(0 == 0);
+}
+#endif
 
 } // namespace permutation::internal
