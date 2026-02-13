@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Build the library from permutation.cpp
-add_library(quant_hash_lib STATIC src/permutation.cpp)
+add_library(quant_hash_lib STATIC 
+    src/permutation.cpp
+)
 target_include_directories(quant_hash_lib PUBLIC include)
 
 # Build the main.cpp executable
