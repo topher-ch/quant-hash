@@ -213,6 +213,38 @@ TEST_CASE("Chi") {
 }
 #endif
 
-void iota(State& s) {}
+/*[ 1001 1011 1010 0011 1000 0010 0001 ]*/
+constexpr uint64_t kIotaRoundConstants = 0x9BA3821;
+
+void iota(State& s, int round) {
+    uint64_t lane = s.bits & 0b1111;
+    uint64_t rc = (kIotaRoundConstants >> (4*round)) & 0b1111;
+    uint64_t s_new = ((s.bits >> 4) << 4) | (lane ^ rc);
+    s.bits = s_new;
+}
+#ifdef ENABLE_DOCTEST
+TEST_CASE("Iota") {
+    SUBCASE("Iota_0_0") {
+        State s{0x0000000000000000};
+        iota(s, 0);
+        CHECK(s.bits == 0x0000000000000001);
+    }
+    SUBCASE("Iota_1_0") {
+        State s{0xFFFFFFFFFFFFFFFF};
+        iota(s, 0);
+        CHECK(s.bits == 0xFFFFFFFFFFFFFFFE);
+    }
+    SUBCASE("Iota_Rand_0") {
+        State s{0xE52B1C1DB4E1AE42};
+        iota(s, 0);
+        CHECK(s.bits == 0xE52B1C1DB4E1AE43);
+    }
+    SUBCASE("Iota_Rand_6") {
+        State s{0xE52B1C1DB4E1AE42};
+        iota(s, 6);
+        CHECK(s.bits == 0xE52B1C1DB4E1AE4B);
+    }
+}
+#endif
 
 } // namespace permutation::internal
