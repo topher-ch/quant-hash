@@ -1,14 +1,7 @@
 #include "permutation.hpp"
-#include <iostream>
 #ifdef ENABLE_DOCTEST
 #include <doctest.h>
 #endif
-
-namespace permutation {
-
-void permute(State& s) {}
-
-} // namespace permutation
 
 namespace permutation::internal {
 
@@ -248,3 +241,17 @@ TEST_CASE("Iota") {
 #endif
 
 } // namespace permutation::internal
+
+namespace permutation {
+
+void permute(State& s) {
+    for (int i = 0; i < 7; i++) {
+        internal::theta(s);
+        internal::rho(s);
+        internal::pi(s);
+        internal::chi(s);
+        internal::iota(s, i);
+    }
+}
+
+} // namespace permutation
