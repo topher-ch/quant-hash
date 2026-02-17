@@ -107,7 +107,46 @@ TEST_CASE("Theta") {
 }
 #endif
 
-void rho(State& s) {}
+/*
+[ 0 1 3 2 
+  2 3 1 0
+  3 0 2 1 
+  1 2 0 3 ]
+*/
+constexpr uint64_t kRhoOffsets = 0x1EB4C963;
+
+void rho(State& s) {
+    uint64_t s_new = 0;
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
+            uint64_t rotation = (kRhoOffsets >> 2*(4*y + x)) & 0b11;
+            uint64_t lane = (s.bits >> 4*(4*y + x)) & 0b1111;
+            uint64_t lane_rotated = ((lane << rotation) & 0b1111) ^ ((lane >> (4 - rotation)) & 0b1111);
+            s_new |= (lane_rotated << 4*(4*y + x));
+        }
+    }
+    s.bits = s_new;
+}
+#ifdef ENABLE_DOCTEST
+TEST_CASE("Rho") {
+    SUBCASE("Rho_0") {
+        State s{0x0000000000000000};
+        rho(s);
+        CHECK(s.bits == 0);
+    }
+    SUBCASE("Rho_1") {
+        State s{0xFFFFFFFFFFFFFFFF};
+        rho(s);
+        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
+    }
+    SUBCASE("Rho_Rand") {
+        State s{0xEA2B1F2C081F84F3};
+        rho(s);
+        CHECK(s.bits == 0xE51E4F4C084F11F9);
+    }
+}
+#endif
+
 void pi(State& s) {}
 void chi(State& s) {}
 void iota(State& s) {}
