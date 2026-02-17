@@ -178,7 +178,41 @@ TEST_CASE("Pi") {
 }
 #endif
 
-void chi(State& s) {}
+void chi(State& s) {
+    uint64_t s_new = 0;
+    for (int y = 0; y < 4; y++) {
+        uint64_t lane1 = (s.bits >> 4*(4*y)) & 0b1111;
+        uint64_t lane2 = (s.bits >> 4*(4*y + 1)) & 0b1111;
+        for (int x = 0; x < 4; x++) {
+            uint64_t lane3 = (s.bits >> 4*(4*y + ((x + 2) % 4))) & 0b1111;
+            uint64_t lane_new = lane1 ^ ((lane2 ^ 0b1111) & lane3);
+            s_new |= lane_new << 4*(4*y + x);
+            lane1 = lane2;
+            lane2 = lane3;
+        }
+    }
+    s.bits = s_new;
+}
+#ifdef ENABLE_DOCTEST
+TEST_CASE("Chi") {
+    SUBCASE("Chi_0") {
+        State s{0x0000000000000000};
+        chi(s);
+        CHECK(s.bits == 0);
+    }
+    SUBCASE("Chi_1") {
+        State s{0xFFFFFFFFFFFFFFFF};
+        chi(s);
+        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
+    }
+    SUBCASE("Chi_Rand") {
+        State s{0xE48F1C0154F1EF49};
+        chi(s);
+        CHECK(s.bits == 0xE52B1C1DB4E1AE42);
+    }
+}
+#endif
+
 void iota(State& s) {}
 
 } // namespace permutation::internal
