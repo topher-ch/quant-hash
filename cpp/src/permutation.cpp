@@ -5,17 +5,13 @@
 
 namespace permutation::internal {
 
-int bit_index(int x, int y, int z) {
-    return 4*(4*y + x) + z;
-}
-
 uint64_t theta_C(State& s) {
     uint64_t C = 0;
     for (int x = 0; x < 4; x++) {
         for (int z = 0; z < 4; z++) {
-            uint64_t running_xor = (s.bits >> bit_index(x, 0, z)) & 1;
+            uint64_t running_xor = (s.bits >> (4*x + z)) & 1;
             for (int y = 1; y < 4; y++) {
-                running_xor ^= (s.bits >> bit_index(x, y, z)) & 1;
+                running_xor ^= (s.bits >> (4*(4*y + x) + z)) & 1;
             }
             C |= running_xor << (4*x + z);
         }
@@ -75,7 +71,7 @@ void theta(State& s) {
         for (int z = 0; z < 4; z++) {
             uint64_t d = (D >> (4*x + z)) & 1;
             for (int y = 0; y < 4; y++) {
-                s_new |= (((s.bits >> bit_index(x, y, z)) & 1) ^ d) << bit_index(x, y, z);
+                s_new |= (((s.bits >> (4*(4*y + x) + z)) & 1) ^ d) << (4*(4*y + x) + z);
             }
         }
     }
@@ -206,7 +202,7 @@ TEST_CASE("Chi") {
 }
 #endif
 
-/*[ 1001 1011 1010 0011 1000 0010 0001 ]*/
+// [ 1001 1011 1010 0011 1000 0010 0001 ]
 constexpr uint64_t kIotaRoundConstants = 0x9BA3821;
 
 void iota(State& s, int round) {
