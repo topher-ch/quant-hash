@@ -1,4 +1,5 @@
 #include "permutation.hpp"
+#include <iostream>
 #ifdef ENABLE_DOCTEST
 #include <doctest.h>
 #endif
@@ -145,7 +146,38 @@ TEST_CASE("Rho") {
 }
 #endif
 
-void pi(State& s) {}
+void pi(State& s) {
+    uint64_t s_new = 0;
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
+            int x_old = (x + 3*y) % 4;
+            int y_old = x;
+            uint64_t lane = (s.bits >> 4*(4*y_old + x_old)) & 0b1111;
+            s_new |= lane << 4*(4*y + x);
+        }
+    }
+    s.bits = s_new;
+}
+#ifdef ENABLE_DOCTEST
+TEST_CASE("Pi") {
+    SUBCASE("Pi_0") {
+        State s{0x0000000000000000};
+        pi(s);
+        CHECK(s.bits == 0);
+    }
+    SUBCASE("Pi_1") {
+        State s{0xFFFFFFFFFFFFFFFF};
+        pi(s);
+        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
+    }
+    SUBCASE("Pi_Rand") {
+        State s{0xE51E4F4C084F11F9};
+        pi(s);
+        CHECK(s.bits == 0xE48F1C0154F1EF49);
+    }
+}
+#endif
+
 void chi(State& s) {}
 void iota(State& s) {}
 
