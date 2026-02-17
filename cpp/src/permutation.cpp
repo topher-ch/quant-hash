@@ -121,7 +121,7 @@ void rho(State& s) {
             uint64_t rotation = (kRhoOffsets >> 2*(4*y + x)) & 0b11;
             uint64_t lane = (s.bits >> 4*(4*y + x)) & 0b1111;
             uint64_t lane_rotated = ((lane << rotation) & 0b1111) ^ ((lane >> (4 - rotation)) & 0b1111);
-            s_new |= (lane_rotated << 4*(4*y + x));
+            s_new |= lane_rotated << 4*(4*y + x);
         }
     }
     s.bits = s_new;
