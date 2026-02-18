@@ -17,7 +17,8 @@ target_link_libraries(quant_hash PRIVATE quant_hash_lib)
 # Build the testing executable
 set(TEST_SOURCES
     src/tests.cpp
-    src/permutation.cpp)
+    src/permutation.cpp
+    src/hash.cpp)
 add_executable(quant_hash_test ${TEST_SOURCES})
 target_include_directories(quant_hash_test PRIVATE include)
 target_compile_definitions(quant_hash_test PRIVATE ENABLE_DOCTEST)
