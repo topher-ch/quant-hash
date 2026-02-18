@@ -1,12 +1,12 @@
 #include "hash.hpp"
+#include <array>
 #ifdef ENABLE_DOCTEST
 #include <doctest.h>
-#include <array>
 #endif
 
 namespace hash::internal {
 
-int kRate = 48;
+const int kRate = 48;
 uint64_t state = 0;
 std::array<uint8_t, kRate> buffer;
 size_t buffer_len = 0;
@@ -21,10 +21,10 @@ uint64_t get_state() {}
 
 namespace hash {
 
-void 8out() {}
-void 12out() {}
-void 16out() {}
-void 32out() {}
-void 64out() {}
+void out_8() {}
+void out_12() {}
+void out_16() {}
+void out_32() {}
+void out_64() {}
 
 } // namespace hash
