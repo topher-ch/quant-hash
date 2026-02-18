@@ -1,5 +1,6 @@
 #include <iostream>
 #include "permutation.hpp"
+#include "hash.cpp"
 
 int main() {
     permutation::State s{0x0AA1FFA6E8956479};
