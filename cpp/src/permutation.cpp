@@ -1,7 +1,4 @@
 #include "permutation.hpp"
-#ifdef ENABLE_DOCTEST
-#include <doctest.h>
-#endif
 
 namespace permutation::internal {
 
@@ -18,22 +15,6 @@ uint64_t theta_C(State& s) {
     }
     return C;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Theta_C") {
-    SUBCASE("0") {
-        State s{0x0000000000000000};
-        CHECK(theta_C(s) == 0);
-    }
-    SUBCASE("1") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        CHECK(theta_C(s) == 0);
-    }
-    SUBCASE("Rand") {
-        State s{0x0AA1FFA6E8956479};
-        CHECK(theta_C(s) == 0x79EB);    
-    }
-}
-#endif
 
 uint64_t theta_D(uint64_t C) {
     uint64_t D = 0;
@@ -49,19 +30,6 @@ uint64_t theta_D(uint64_t C) {
     }
     return D;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Theta_D") {
-    SUBCASE("0") {
-        CHECK(theta_D(0x0000) == 0);
-    }
-    SUBCASE("1") {
-        CHECK(theta_D(0xFFFF) == 0);
-    }
-    SUBCASE("Rand") {
-        CHECK(theta_D(0x79EB) == 0xE08A);
-    }
-}
-#endif
 
 void theta(State& s) {
     uint64_t C = theta_C(s);
@@ -77,25 +45,6 @@ void theta(State& s) {
     }
     s.bits = s_new;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Theta") {
-    SUBCASE("Theta_0") {
-        State s{0x0000000000000000};
-        theta(s);
-        CHECK(s.bits == 0);
-    }
-    SUBCASE("Theta_1") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        theta(s);
-        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
-    }
-    SUBCASE("Theta_Rand") {
-        State s{0x0AA1FFA6E8956479};
-        theta(s);
-        CHECK(s.bits == 0xEA2B1F2C081F84F3);
-    }
-}
-#endif
 
 /*[ 0 1 3 2 
     2 3 1 0
@@ -115,25 +64,6 @@ void rho(State& s) {
     }
     s.bits = s_new;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Rho") {
-    SUBCASE("Rho_0") {
-        State s{0x0000000000000000};
-        rho(s);
-        CHECK(s.bits == 0);
-    }
-    SUBCASE("Rho_1") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        rho(s);
-        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
-    }
-    SUBCASE("Rho_Rand") {
-        State s{0xEA2B1F2C081F84F3};
-        rho(s);
-        CHECK(s.bits == 0xE51E4F4C084F11F9);
-    }
-}
-#endif
 
 void pi(State& s) {
     uint64_t s_new = 0;
@@ -147,25 +77,6 @@ void pi(State& s) {
     }
     s.bits = s_new;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Pi") {
-    SUBCASE("Pi_0") {
-        State s{0x0000000000000000};
-        pi(s);
-        CHECK(s.bits == 0);
-    }
-    SUBCASE("Pi_1") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        pi(s);
-        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
-    }
-    SUBCASE("Pi_Rand") {
-        State s{0xE51E4F4C084F11F9};
-        pi(s);
-        CHECK(s.bits == 0xE48F1C0154F1EF49);
-    }
-}
-#endif
 
 void chi(State& s) {
     uint64_t s_new = 0;
@@ -182,25 +93,6 @@ void chi(State& s) {
     }
     s.bits = s_new;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Chi") {
-    SUBCASE("Chi_0") {
-        State s{0x0000000000000000};
-        chi(s);
-        CHECK(s.bits == 0);
-    }
-    SUBCASE("Chi_1") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        chi(s);
-        CHECK(s.bits == 0xFFFFFFFFFFFFFFFF);
-    }
-    SUBCASE("Chi_Rand") {
-        State s{0xE48F1C0154F1EF49};
-        chi(s);
-        CHECK(s.bits == 0xE52B1C1DB4E1AE42);
-    }
-}
-#endif
 
 // [ 1001 1011 1010 0011 1000 0010 0001 ]
 constexpr uint64_t kIotaRoundConstants = 0x9BA3821;
@@ -211,30 +103,6 @@ void iota(State& s, int round) {
     uint64_t s_new = ((s.bits >> 4) << 4) | (lane ^ rc);
     s.bits = s_new;
 }
-#ifdef ENABLE_DOCTEST
-TEST_CASE("Iota") {
-    SUBCASE("Iota_0_0") {
-        State s{0x0000000000000000};
-        iota(s, 0);
-        CHECK(s.bits == 0x0000000000000001);
-    }
-    SUBCASE("Iota_1_0") {
-        State s{0xFFFFFFFFFFFFFFFF};
-        iota(s, 0);
-        CHECK(s.bits == 0xFFFFFFFFFFFFFFFE);
-    }
-    SUBCASE("Iota_Rand_0") {
-        State s{0xE52B1C1DB4E1AE42};
-        iota(s, 0);
-        CHECK(s.bits == 0xE52B1C1DB4E1AE43);
-    }
-    SUBCASE("Iota_Rand_6") {
-        State s{0xE52B1C1DB4E1AE42};
-        iota(s, 6);
-        CHECK(s.bits == 0xE52B1C1DB4E1AE4B);
-    }
-}
-#endif
 
 } // namespace permutation::internal
 

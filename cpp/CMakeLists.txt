@@ -11,14 +11,14 @@ add_library(quant_hash_lib STATIC
 target_include_directories(quant_hash_lib PUBLIC include)
 
 # Build the main.cpp executable
-add_executable(quant_hash src/main.cpp)
-target_link_libraries(quant_hash PRIVATE quant_hash_lib)
+add_executable(main src/main.cpp)
+target_link_libraries(main PRIVATE quant_hash_lib)
 
 # Build the testing executable
 set(TEST_SOURCES
-    src/tests.cpp
-    src/permutation.cpp
-    src/hash.cpp)
-add_executable(quant_hash_test ${TEST_SOURCES})
-target_include_directories(quant_hash_test PRIVATE include)
-target_compile_definitions(quant_hash_test PRIVATE ENABLE_DOCTEST)
+    tests/test_main.cpp
+    tests/test_permutation.cpp
+    )
+add_executable(tests ${TEST_SOURCES})
+target_include_directories(tests PRIVATE include)
+target_compile_definitions(tests PRIVATE ENABLE_DOCTEST)
