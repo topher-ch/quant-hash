@@ -10,10 +10,10 @@ using Digest8  = std::array<uint8_t, 1>
 
 namespace hash {
 
-    Digest64 out_64();
-    Digest32 out_32();
-    Digest16 out_16();
-    Digest12 out_12();
-    Digest8  out_8() ;
+Digest64 out_64();
+Digest32 out_32();
+Digest16 out_16();
+Digest12 out_12();
+Digest8  out_8() ;
 
 } // namespace hash
