@@ -1,3 +1,8 @@
+.PHONY: build main tests both clean
+
+clean:
+	rm -rf build
+
 build:
 	cmake -S . -B build
 	cmake --build build

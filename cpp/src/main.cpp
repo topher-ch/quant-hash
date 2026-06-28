@@ -8,5 +8,7 @@ int main() {
         s[i] = 0xfffffff0 + i;
     }
     permutation::theta(s);
+    permutation::pi(s);
+    permutation::rho(s);
     return 0;
 }

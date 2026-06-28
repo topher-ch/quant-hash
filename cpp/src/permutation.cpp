@@ -1,4 +1,5 @@
 #include "permutation.hpp"
+#include "constants.hpp"
 
 namespace permutation {
 
@@ -30,6 +31,31 @@ void theta(State& s) {
         }
     }
     std::cout << "theta (after):\n";
+    print_state(s);
+}
+
+void pi(State& s) {
+    std::cout << "pi (before):\n";
+    print_state(s);
+    State tmp{};
+    for (int x = 0; x < 3; x++) {
+        for (int y = 0; y < 3; y++) {
+            int X = y, Y = (x + y) % 3;
+            tmp[idx(X,Y)] = s[idx(x,y)];
+        }
+    }
+    s = tmp;
+    std::cout << "pi (after):\n";
+    print_state(s);
+}
+
+void rho(State& s) {
+    std::cout << "rho (before):\n";
+    print_state(s);
+    for (int i = 0; i < 9; i++) {
+        s[i] = std::rotl(s[i], ROT[i]);
+    }
+    std::cout << "rho (after):\n";
     print_state(s);
 }
 
