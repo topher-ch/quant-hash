@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <bit>
+#include <iomanip>
 
 namespace permutation {
 
@@ -14,7 +15,7 @@ void theta(State& s);
 void pi(State& s);
 void rho(State& s);
 void chi(State& s);
-void iota(State& s);
+void iota(State& s, int round);
 
 void permute(State& s);
 

@@ -7,9 +7,6 @@ int main() {
     for (int i = 0; i < 9; i++) {
         s[i] = 0xfffffff0 + i;
     }
-    permutation::theta(s);
-    permutation::pi(s);
-    permutation::rho(s);
-    permutation::chi(s);
+    permutation::permute(s);
     return 0;
 }
