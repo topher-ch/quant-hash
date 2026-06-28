@@ -10,5 +10,6 @@ int main() {
     permutation::theta(s);
     permutation::pi(s);
     permutation::rho(s);
+    permutation::chi(s);
     return 0;
 }

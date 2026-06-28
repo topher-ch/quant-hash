@@ -59,4 +59,18 @@ void rho(State& s) {
     print_state(s);
 }
 
+void chi(State& s) {
+    std::cout << "chi (before):\n";
+    print_state(s);
+    State tmp{};
+    for (int x = 0; x < 3; x++) {
+        for (int y = 0; y < 3; y++) {
+            tmp[idx(x,y)] = s[idx(x,y)] ^ (~s[idx((x+1)%3,y)] & s[idx((x+2)%3,y)]);
+        }
+    }
+    s = tmp;
+    std::cout << "chi (after):\n";
+    print_state(s);
+}
+
 } // namespace permutation
