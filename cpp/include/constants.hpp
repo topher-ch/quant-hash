@@ -3,6 +3,13 @@
 #include <cstdint>
 #include <bitset>
 
+namespace hash {
+
+const int r_lanes = 4;
+const int c_lanes = 5;
+
+} // namespace hash
+
 namespace permutation {
 
 constexpr int idx(int x, int y) { return x + 3*y; }
@@ -53,4 +60,4 @@ constexpr std::array<uint32_t, NUM_ROUNDS> iota_RC() {
 
 constexpr auto RC = iota_RC();
 
-} // namespae constants
+} // namespae permutation

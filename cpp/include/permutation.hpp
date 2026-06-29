@@ -1,9 +1,6 @@
 #pragma once
 #include <array>
 #include <cstdint>
-#include <iostream>
-#include <bit>
-#include <iomanip>
 
 namespace permutation {
 

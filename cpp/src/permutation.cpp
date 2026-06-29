@@ -1,5 +1,8 @@
 #include "permutation.hpp"
 #include "constants.hpp"
+#include <iostream>
+#include <bit>
+#include <iomanip>
 
 namespace permutation {
 
