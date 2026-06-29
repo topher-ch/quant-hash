@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Build the library from permutation.cpp
 add_library(quant_hash_lib STATIC 
     src/permutation.cpp
+    src/hash.cpp
 )
 target_include_directories(quant_hash_lib PUBLIC include)
 
