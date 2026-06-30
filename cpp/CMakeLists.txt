@@ -4,10 +4,11 @@ project(quant_hash)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Build the library from permutation.cpp
+# Build the library
 add_library(quant_hash_lib STATIC 
     src/permutation.cpp
     src/hash.cpp
+    analysis/brute_force.cpp
 )
 target_include_directories(quant_hash_lib PUBLIC include)
 
