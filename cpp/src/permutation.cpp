@@ -85,8 +85,8 @@ void iota(State& s, int round) {
 }
 
 void permute(State& s) {
-    std::cout << "permute (before):\n";
-    print_state(s);
+    // std::cout << "permute (before):\n";
+    // print_state(s);
     for (int i = 0; i < NUM_ROUNDS; i++) {
         theta(s);
         pi(s);
@@ -94,8 +94,8 @@ void permute(State& s) {
         chi(s);
         iota(s, i);
     }
-    std::cout << "permute (after):\n";
-    print_state(s);
+    // std::cout << "permute (after):\n";
+    // print_state(s);
 }
 
 } // namespace permutation
